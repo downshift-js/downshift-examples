@@ -1,3 +1,4 @@
+// here's an extremely bare bones example of an autocomplete
 import React from 'react'
 import {render} from 'react-dom'
 import Downshift from 'downshift'

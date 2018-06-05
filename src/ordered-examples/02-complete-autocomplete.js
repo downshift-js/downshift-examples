@@ -1,3 +1,8 @@
+// This is a more complete example of an autocomplete component
+// with custom styling, filtering of objects, and more.
+// Much of the irrelevant bits are in the ../shared file.
+// which you may also want to become familiar with as many
+// examples will use those as well.
 import React, {Component} from 'react'
 import matchSorter from 'match-sorter'
 import starWarsNames from 'starwars-names'
@@ -25,7 +30,10 @@ class App extends React.Component {
           marginTop: 50,
         })}
       >
-        <Downshift itemToString={itemToString}>
+        <Downshift
+          onChange={selection => alert(`You selected ${selection.value}`)}
+          itemToString={itemToString}
+        >
           {({
             getLabelProps,
             getInputProps,
