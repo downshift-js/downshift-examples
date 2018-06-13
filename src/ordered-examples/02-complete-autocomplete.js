@@ -31,13 +31,20 @@ class App extends React.Component {
         })}
       >
         <Downshift
-          onChange={selection => alert(`You selected ${selection.value}`)}
+          onChange={selection =>
+            alert(
+              selection
+                ? `You selected ${itemToString(selection)}`
+                : 'selection cleared',
+            )
+          }
           itemToString={itemToString}
         >
           {({
             getLabelProps,
             getInputProps,
-            getButtonProps,
+            getToggleButtonProps,
+            getMenuProps,
             getItemProps,
             isOpen,
             toggleMenu,
@@ -63,29 +70,29 @@ class App extends React.Component {
                     <XIcon />
                   </ControllerButton>
                 ) : (
-                  <ControllerButton {...getButtonProps()}>
+                  <ControllerButton {...getToggleButtonProps()}>
                     <ArrowIcon isOpen={isOpen} />
                   </ControllerButton>
                 )}
               </div>
               <div {...css({position: 'relative'})}>
-                {!isOpen ? null : (
-                  <Menu>
-                    {getItems(inputValue).map((item, index) => (
-                      <Item
-                        key={item.id}
-                        {...getItemProps({
-                          item,
-                          index,
-                          isActive: highlightedIndex === index,
-                          isSelected: selectedItem === item,
-                        })}
-                      >
-                        {itemToString(item)}
-                      </Item>
-                    ))}
-                  </Menu>
-                )}
+                <Menu {...getMenuProps({isOpen})}>
+                  {isOpen
+                    ? getItems(inputValue).map((item, index) => (
+                        <Item
+                          key={item.id}
+                          {...getItemProps({
+                            item,
+                            index,
+                            isActive: highlightedIndex === index,
+                            isSelected: selectedItem === item,
+                          })}
+                        >
+                          {itemToString(item)}
+                        </Item>
+                      ))
+                    : null}
+                </Menu>
               </div>
             </div>
           )}

@@ -5,16 +5,16 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
-    "debounce-fn": "1.0.0",
-    "downshift": "1.31.15",
-    "emotion": "9.1.3",
-    "match-sorter": "2.2.3",
-    "react": "16.3.2",
-    "react-dom": "16.3.2",
-    "react-emotion": "9.1.3",
-    "react-scripts": "1.1.4",
-    "react-virtualized": "9.19.1",
-    "starwars-names": "1.6.0"
+    "debounce-fn": "^1.0.0",
+    "downshift": "2.0.0-beta.1",
+    "emotion": "^9.1.3",
+    "match-sorter": "^2.2.3",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-emotion": "^9.1.3",
+    "react-scripts": "^1.1.4",
+    "react-virtualized": "^9.19.1",
+    "starwars-names": "^1.6.0"
   },
   "devDependencies": {},
   "scripts": {

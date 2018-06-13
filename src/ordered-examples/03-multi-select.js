@@ -22,9 +22,11 @@ class MultiDownshift extends React.Component {
 
   stateReducer = (state, changes) => {
     switch (changes.type) {
+      case Downshift.stateChangeTypes.keyDownEnter:
       case Downshift.stateChangeTypes.clickItem:
         return {
           ...changes,
+          highlightedIndex: state.highlightedIndex,
           isOpen: true,
         }
       default:
@@ -54,7 +56,7 @@ class MultiDownshift extends React.Component {
     }
   }
 
-  removeItem(item, cb) {
+  removeItem = (item, cb) => {
     this.setState(({selectedItems}) => {
       return {
         selectedItems: selectedItems.filter(i => i !== item),
@@ -84,9 +86,10 @@ class MultiDownshift extends React.Component {
 
   getStateAndHelpers(downshift) {
     const {selectedItems} = this.state
-    const {getRemoveButtonProps} = this
+    const {getRemoveButtonProps, removeItem} = this
     return {
       getRemoveButtonProps,
+      removeItem,
       selectedItems,
       ...downshift,
     }
@@ -108,6 +111,7 @@ class MultiDownshift extends React.Component {
 }
 
 class App extends React.Component {
+  input = React.createRef()
   itemToString = item => (item ? item.name : '')
   handleChange = selectedItems => {
     console.log({selectedItems})
@@ -121,58 +125,147 @@ class App extends React.Component {
           marginTop: 50,
         })}
       >
-        <h1>CONTRIBUTION OPPORTUNITY</h1>
-        <p>
-          This example needs some styling help. I never got around to finishing
-          it.
-        </p>
+        <h1 {...css({textAlign: 'center'})}>Multi-selection example</h1>
         <MultiDownshift
           onChange={this.handleChange}
           itemToString={this.itemToString}
         >
           {({
-            getButtonProps,
+            getInputProps,
+            getToggleButtonProps,
+            getMenuProps,
+            // note that the getRemoveButtonProps prop getter and the removeItem
+            // action are coming from MultiDownshift composibility for the win!
             getRemoveButtonProps,
+            removeItem,
+
             isOpen,
             inputValue,
             selectedItems,
             getItemProps,
             highlightedIndex,
+            toggleMenu,
           }) => (
-            <div style={{width: 500, margin: 'auto'}}>
-              <ControllerButton {...getButtonProps()}>
-                <div {...css({display: 'flex', marginRight: 8})}>
+            <div style={{width: 500, margin: 'auto', position: 'relative'}}>
+              <div
+                {...css({
+                  cursor: 'pointer',
+                  position: 'relative',
+                  borderRadius: '6px',
+                  borderTopRadius: 6,
+                  borderBottomRightRadius: isOpen ? 0 : 6,
+                  borderBottomLeftRadius: isOpen ? 0 : 6,
+                  padding: 10,
+                  paddingRight: 50,
+                  boxShadow: '0 2px 3px 0 rgba(34,36,38,.15)',
+                  borderColor: '#96c8da',
+                  borderTopWidth: '1',
+                  borderRightWidth: 1,
+                  borderBottomWidth: 1,
+                  borderLeftWidth: 1,
+                  borderStyle: 'solid',
+                })}
+                onClick={() => {
+                  toggleMenu()
+                  !isOpen && this.input.current.focus()
+                }}
+              >
+                <div
+                  {...css({
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                  })}
+                >
                   {selectedItems.length > 0
                     ? selectedItems.map(item => (
                         <div
                           key={item.id}
-                          {...css({marginRight: 4, backgroundColor: '#ccc'})}
+                          {...css({
+                            margin: 2,
+                            paddingTop: 2,
+                            paddingBottom: 2,
+                            paddingLeft: 8,
+                            paddingRight: 8,
+                            display: 'inline-block',
+                            wordWrap: 'none',
+                            backgroundColor: '#ccc',
+                            borderRadius: 2,
+                          })}
                         >
-                          {item.name}{' '}
-                          <span {...getRemoveButtonProps({item})}>x</span>
+                          <div
+                            {...css({
+                              display: 'grid',
+                              gridGap: 6,
+                              gridAutoFlow: 'column',
+                              alignItems: 'center',
+                            })}
+                          >
+                            <span>{item.name}</span>
+                            <button
+                              {...getRemoveButtonProps({item})}
+                              {...css({
+                                cursor: 'pointer',
+                                lineHeight: 0.8,
+                                border: 'none',
+                                backgroundColor: 'transparent',
+                                padding: '0',
+                                fontSize: '16px',
+                              })}
+                            >
+                              𝘅
+                            </button>
+                          </div>
                         </div>
                       ))
                     : 'Select a value'}
+                  <input
+                    {...getInputProps({
+                      ref: this.input,
+                      onKeyUp(event) {
+                        if (event.key === 'Backspace' && !inputValue) {
+                          removeItem(selectedItems[selectedItems.length - 1])
+                        }
+                      },
+                      ...css({
+                        border: 'none',
+                        marginLeft: 6,
+                        flex: 1,
+                        fontSize: 14,
+                        minHeight: 27,
+                      }),
+                    })}
+                  />
                 </div>
-                <ArrowIcon isOpen={isOpen} />
-              </ControllerButton>
-              {!isOpen ? null : (
-                <Menu>
-                  {getItems().map((item, index) => (
-                    <Item
-                      key={item.id}
-                      {...getItemProps({
-                        item,
-                        index,
-                        isActive: highlightedIndex === index,
-                        isSelected: selectedItems.includes(item),
-                      })}
-                    >
-                      {item.name}
-                    </Item>
-                  ))}
-                </Menu>
-              )}
+                <ControllerButton
+                  {...getToggleButtonProps({
+                    // prevents the menu from immediately toggling
+                    // closed (due to our custom click handler above).
+                    onClick(event) {
+                      event.stopPropagation()
+                    },
+                  })}
+                >
+                  <ArrowIcon isOpen={isOpen} />
+                </ControllerButton>
+              </div>
+              <Menu {...getMenuProps({isOpen})}>
+                {isOpen
+                  ? getItems(inputValue).map((item, index) => (
+                      <Item
+                        key={item.id}
+                        {...getItemProps({
+                          item,
+                          index,
+                          isActive: highlightedIndex === index,
+                          isSelected: selectedItems.includes(item),
+                        })}
+                      >
+                        {item.name}
+                      </Item>
+                    ))
+                  : null}
+              </Menu>
             </div>
           )}
         </MultiDownshift>

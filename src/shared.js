@@ -8,7 +8,7 @@ const allItems = starWarsNames.all.map(s => ({name: s, id: s.toLowerCase()}))
 
 const css = (...args) => ({className: emoCSS(...args)})
 
-const Item = styled('div')(
+const Item = styled('li')(
   {
     position: 'relative',
     cursor: 'pointer',
@@ -85,24 +85,35 @@ const Label = styled('label')({
   marginBottom: 10,
 })
 
-const Menu = styled('div')({
-  position: 'absolute',
-  backgroundColor: 'white',
-  width: '100%',
-  maxHeight: '20rem',
-  overflowY: 'auto',
-  overflowX: 'hidden',
-  borderTopWidth: '0',
-  outline: '0',
-  borderRadius: '0 0 .28571429rem .28571429rem',
-  transition: 'opacity .1s ease',
-  boxShadow: '0 2px 3px 0 rgba(34,36,38,.15)',
-  borderColor: '#96c8da',
-  borderRightWidth: 1,
-  borderBottomWidth: 1,
-  borderLeftWidth: 1,
-  borderStyle: 'solid',
-})
+const BaseMenu = styled('ul')(
+  {
+    padding: 0,
+    marginTop: 0,
+    position: 'absolute',
+    backgroundColor: 'white',
+    width: '100%',
+    maxHeight: '20rem',
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    outline: '0',
+    transition: 'opacity .1s ease',
+    borderRadius: '0 0 .28571429rem .28571429rem',
+    boxShadow: '0 2px 3px 0 rgba(34,36,38,.15)',
+    borderColor: '#96c8da',
+    borderTopWidth: '0',
+    borderRightWidth: 1,
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderStyle: 'solid',
+  },
+  ({isOpen}) => ({
+    border: isOpen ? null : 'none',
+  }),
+)
+
+const Menu = React.forwardRef((props, ref) => (
+  <BaseMenu innerRef={ref} {...props} />
+))
 
 const ControllerButton = styled('button')({
   backgroundColor: 'transparent',
