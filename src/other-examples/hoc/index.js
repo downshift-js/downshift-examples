@@ -100,7 +100,9 @@ function App() {
     >
       <h2>Downshift HOC + Compound Components example</h2>
       <Downshift
-        onChange={selection => alert(`You selected ${selection.name}`)}
+        onChange={selection =>
+          selection ? alert(`You selected ${selection.name}`) : null
+        }
         itemToString={item => (item ? item.name : '')}
       >
         <div {...css({width: 250, margin: 'auto', position: 'relative'})}>
