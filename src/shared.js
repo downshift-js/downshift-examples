@@ -170,6 +170,10 @@ function getItems(filter) {
     : allItems
 }
 
+function getStringItems(filter) {
+  return getItems(filter).map(({name}) => name)
+}
+
 function sleep(ms) {
   return new Promise(resolve => {
     setTimeout(resolve, ms)
@@ -199,5 +203,6 @@ export {
   css,
   itemToString,
   getItems,
+  getStringItems,
   getItemsAsync,
 }
