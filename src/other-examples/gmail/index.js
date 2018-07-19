@@ -8,6 +8,7 @@ import {ComposeMail, Recipient} from './components'
 import {css} from '../../shared'
 
 class RecipientInput extends React.Component {
+  input = React.createRef()
   state = {selectedContacts: []}
   handleChange = (selectedContact, downshift) => {
     this.setState(
@@ -26,7 +27,7 @@ class RecipientInput extends React.Component {
         selectedContacts: selectedContacts.filter(c => c !== contact),
       }),
       () => {
-        this.input.focus()
+        this.input.current.focus()
         this.props.onChange(this.state.selectedContacts)
       },
     )
@@ -87,10 +88,12 @@ class RecipientInput extends React.Component {
         selectedItem={null}
         onChange={this.handleChange}
         defaultHighlightedIndex={0}
-        render={({
+      >
+        {({
           getLabelProps,
           getInputProps,
           getItemProps,
+          getMenuProps,
           isOpen,
           toggleMenu,
           clearSelection,
@@ -125,6 +128,7 @@ class RecipientInput extends React.Component {
               ))}
               <input
                 {...getInputProps({
+                  ref: this.input,
                   onKeyDown: event =>
                     this.handleInputKeyDown({
                       event,
@@ -148,48 +152,51 @@ class RecipientInput extends React.Component {
               />
             </div>
             {!isOpen ? null : (
-              <FetchContacts
-                searchValue={inputValue}
-                omitContacts={selectedContacts}
-                onLoaded={({contacts}) => {
-                  clearItems()
-                  if (contacts) {
-                    setHighlightedIndex(contacts.length ? 0 : null)
-                    setItemCount(contacts.length)
-                  }
-                }}
-                render={({loading, contacts, error}) => (
-                  <div
-                    {...css({
-                      position: 'absolute',
-                      backgroundColor: 'white',
-                      width: 300,
-                      maxHeight: 280,
-                      overflow: 'scroll',
-                      boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-                      border: '1px solid rgba(0,0,0,.2)',
-                    })}
-                  >
-                    {loading ? (
-                      <div {...css({padding: 10})}>loading...</div>
-                    ) : error ? (
-                      <div {...css({padding: 10})}>error...</div>
-                    ) : contacts.length ? (
-                      <ContactList
-                        highlightedIndex={highlightedIndex}
-                        getItemProps={getItemProps}
-                        contacts={contacts}
-                      />
-                    ) : (
-                      <div {...css({padding: 10})}>no results...</div>
-                    )}
-                  </div>
-                )}
-              />
+              <ul {...getMenuProps({style: {padding: 0, margin: 0}})}>
+                <FetchContacts
+                  searchValue={inputValue}
+                  omitContacts={selectedContacts}
+                  onLoaded={({contacts}) => {
+                    clearItems()
+                    if (contacts) {
+                      setHighlightedIndex(contacts.length ? 0 : null)
+                      setItemCount(contacts.length)
+                    }
+                  }}
+                >
+                  {({loading, contacts, error}) => (
+                    <div
+                      {...css({
+                        position: 'absolute',
+                        backgroundColor: 'white',
+                        width: 300,
+                        maxHeight: 280,
+                        overflow: 'scroll',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+                        border: '1px solid rgba(0,0,0,.2)',
+                      })}
+                    >
+                      {loading ? (
+                        <div {...css({padding: 10})}>loading...</div>
+                      ) : error ? (
+                        <div {...css({padding: 10})}>error...</div>
+                      ) : contacts.length ? (
+                        <ContactList
+                          highlightedIndex={highlightedIndex}
+                          getItemProps={getItemProps}
+                          contacts={contacts}
+                        />
+                      ) : (
+                        <div {...css({padding: 10})}>no results...</div>
+                      )}
+                    </div>
+                  )}
+                </FetchContacts>
+              </ul>
             )}
           </div>
         )}
-      />
+      </Downshift>
     )
   }
 }
@@ -205,7 +212,7 @@ function ContactList({highlightedIndex, getItemProps, contacts, setItemCount}) {
       rowCount={contacts.length}
       rowHeight={rowHeight}
       rowRenderer={({key, index, style}) => (
-        <div
+        <li
           key={contacts[index].id}
           {...getItemProps({
             item: contacts[index],
@@ -223,7 +230,7 @@ function ContactList({highlightedIndex, getItemProps, contacts, setItemCount}) {
           <div {...css({fontSize: '0.8em', marginLeft: 2})}>
             {contacts[index].email}
           </div>
-        </div>
+        </li>
       )}
     />
   )
@@ -286,7 +293,7 @@ class FetchContacts extends React.Component {
     this.mounted = false
   }
   render() {
-    return this.props.render(this.state)
+    return this.props.children(this.state)
   }
 }
 
