@@ -15,7 +15,7 @@ function App() {
         `}</p>
         <p>
           <a href="https://codesandbox.io/s/github/kentcdodds/downshift-examples">
-            Open this in codesandbox
+            Open this in CodeSandbox
           </a>{' '}
           to play around with things. You can also use the codesandbox to
           contribute to{' '}
