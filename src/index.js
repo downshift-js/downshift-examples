@@ -24,6 +24,11 @@ function App() {
           </a>
           !
         </p>
+        <p>
+          <a href="https://www.youtube.com/watch?v=3PAQbhdkTtI&list=PLV5CVI1eNcJgCrPH_e6d57KRUTiDZgs0u">
+            Learn how to contribute here
+          </a>
+        </p>
       </div>
     </div>
   )
