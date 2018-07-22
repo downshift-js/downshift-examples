@@ -3,6 +3,7 @@ import {css as emoCSS} from 'emotion'
 import styled from 'react-emotion'
 import starWarsNames from 'starwars-names'
 import matchSorter from 'match-sorter'
+import {Div} from 'glamorous'
 
 const allItems = starWarsNames.all.map(s => ({name: s, id: s.toLowerCase()}))
 
@@ -193,6 +194,7 @@ async function getItemsAsync(filter, {reject}) {
 const itemToString = i => (i ? i.name : '')
 
 export {
+  Div,
   Menu,
   ControllerButton,
   Input,
