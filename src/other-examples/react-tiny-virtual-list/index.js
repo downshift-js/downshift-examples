@@ -13,7 +13,6 @@ import {
   css,
   getItems,
   itemToString,
-  Div,
 } from '../../shared'
 
 function ExampleDownshift({itemToString, items, ...rest}) {
@@ -103,13 +102,13 @@ class App extends React.Component {
 
   render() {
     return (
-      <Div
-        css={{
+      <div
+        {...css({
           display: 'flex',
           justifyContent: 'center',
           flexDirection: 'column',
           textAlign: 'center',
-        }}
+        })}
       >
         <h2>Windowing with downshift and react-tiny-virtual-list</h2>
         <ExampleDownshift
@@ -118,7 +117,7 @@ class App extends React.Component {
           items={this.state.items}
           itemToString={itemToString}
         />
-      </Div>
+      </div>
     )
   }
 }
