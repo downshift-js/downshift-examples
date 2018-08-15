@@ -201,7 +201,7 @@ class RecipientInput extends React.Component {
   }
 }
 
-function ContactList({highlightedIndex, getItemProps, contacts, setItemCount}) {
+function ContactList({highlightedIndex, getItemProps, contacts}) {
   const rowHeight = 40
   const fullHeight = contacts.length * rowHeight
   return (

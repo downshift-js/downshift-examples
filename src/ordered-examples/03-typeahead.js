@@ -1,9 +1,7 @@
 // A typeahead component is one which accepts whatever value
 // the user types as the selectedItem in addition to allowing
 // the user to select a shown menu item.
-import React, {Component} from 'react'
-import matchSorter from 'match-sorter'
-import starWarsNames from 'starwars-names'
+import React from 'react'
 import Downshift from 'downshift'
 import {
   Label,

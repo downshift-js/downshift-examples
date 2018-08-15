@@ -3,9 +3,7 @@
 // Much of the irrelevant bits are in the ../shared file.
 // which you may also want to become familiar with as many
 // examples will use those as well.
-import React, {Component} from 'react'
-import matchSorter from 'match-sorter'
-import starWarsNames from 'starwars-names'
+import React from 'react'
 import Downshift from 'downshift'
 import {
   Label,

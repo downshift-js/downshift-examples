@@ -4,18 +4,7 @@
 
 import React from 'react'
 import Downshift from 'downshift'
-import {
-  Label,
-  Menu,
-  ControllerButton,
-  Input,
-  Item,
-  ArrowIcon,
-  XIcon,
-  css,
-  itemToString,
-  getItems,
-} from '../shared'
+import {Menu, ControllerButton, Item, ArrowIcon, css, getItems} from '../shared'
 
 class MultiDownshift extends React.Component {
   state = {selectedItems: []}
