@@ -25,17 +25,13 @@ class MultiDownshift extends React.Component {
 
   handleSelection = (selectedItem, downshift) => {
     const callOnChange = () => {
-      if (this.props.onSelect) {
-        this.props.onSelect(
-          this.state.selectedItems,
-          this.getStateAndHelpers(downshift),
-        )
+      const {onSelect, onChange} = this.props
+      const {selectedItems} = this.state
+      if (onSelect) {
+        onSelect(selectedItems, this.getStateAndHelpers(downshift))
       }
-      if (this.props.onChange) {
-        this.props.onChange(
-          this.state.selectedItems,
-          this.getStateAndHelpers(downshift),
-        )
+      if (onChange) {
+        onChange(selectedItems, this.getStateAndHelpers(downshift))
       }
     }
     if (this.state.selectedItems.includes(selectedItem)) {

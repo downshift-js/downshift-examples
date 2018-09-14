@@ -45,7 +45,6 @@ class App extends React.Component {
             getMenuProps,
             getItemProps,
             isOpen,
-            toggleMenu,
             clearSelection,
             selectedItem,
             inputValue,
