@@ -23,6 +23,7 @@
     "react-scripts": "^1.1.4",
     "react-tiny-virtual-list": "2.1.6",
     "react-virtualized": "^9.19.1",
+    "react-window": "1.2.4",
     "starwars-names": "^1.6.0",
     "styled-components": "3.4.2",
     "what-input": "5.1.1"
