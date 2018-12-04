@@ -41,34 +41,12 @@ class ItemRenderer extends PureComponent {
 }
 
 class ExampleDownshift extends React.Component {
-  listRef = React.createRef()
-
-  scrollToItem = highlightedIndex => {
-    if (this.listRef.current !== null) {
-      this.listRef.current.scrollToItem(highlightedIndex)
-    }
-  }
-
-  stateReducer = (state, changes) => {
-    // this scrolls the react-window list to the highlightedIndex
-    switch (changes.type) {
-      case Downshift.stateChangeTypes.keyDownArrowUp:
-        this.scrollToItem(changes.highlightedIndex)
-        return changes
-      case Downshift.stateChangeTypes.keyDownArrowDown:
-        this.scrollToItem(changes.highlightedIndex)
-        return changes
-      default:
-        return changes
-    }
-  }
   render() {
-    const {itemToString, items, ...rest} = this.props
+    const {itemToString, items, listRef, ...rest} = this.props
     return (
       <Downshift
         itemToString={itemToString}
         itemCount={items.length}
-        stateReducer={this.stateReducer}
         defaultHighlightedIndex={0}
         {...rest}
       >
@@ -78,10 +56,8 @@ class ExampleDownshift extends React.Component {
           getToggleButtonProps,
           getItemProps,
           isOpen,
-          toggleMenu,
           clearSelection,
           selectedItem,
-          inputValue,
           highlightedIndex,
         }) => (
           <div {...css({width: 250, margin: 'auto', position: 'relative'})}>
@@ -91,11 +67,6 @@ class ExampleDownshift extends React.Component {
                 {...getInputProps({
                   isOpen,
                   placeholder: 'Enter a name',
-                  onKeyDown: event => {
-                    if (this.listRef.current !== null) {
-                      this.listRef.current.scrollToItem(0 || highlightedIndex)
-                    }
-                  },
                 })}
               />
               {selectedItem ? (
@@ -114,8 +85,7 @@ class ExampleDownshift extends React.Component {
             {!isOpen || !items.length ? null : (
               <Menu>
                 <List
-                  ref={this.listRef}
-                  useIsScrolling
+                  ref={listRef}
                   width={300}
                   height={items.length < 5 ? items.length * 42 : 200}
                   itemCount={items.length}
@@ -125,7 +95,6 @@ class ExampleDownshift extends React.Component {
                     getItemProps,
                     highlightedIndex,
                     selectedItem,
-                    listRef: this.listRef,
                   }}
                 >
                   {ItemRenderer}
@@ -141,10 +110,15 @@ class ExampleDownshift extends React.Component {
 
 class App extends React.Component {
   allItems = starWarsNames.all.map(s => ({name: s, id: s.toLowerCase()}))
+  listRef = React.createRef()
+
   state = {items: this.allItems}
   handleStateChange = (changes, downshiftState) => {
     if (changes.hasOwnProperty('inputValue')) {
       this.setState({items: getItems(changes.inputValue)})
+    }
+    if (changes.hasOwnProperty('highlightedIndex')) {
+      this.scrollToItem(changes.highlightedIndex)
     }
     // handle stuff here if you need to
     // this is especially useful if you need
@@ -153,6 +127,12 @@ class App extends React.Component {
   handleChange = (selectedItem, downshiftState) => {
     this.setState({items: this.allItems})
     // handle the new selectedItem here
+  }
+
+  scrollToItem = highlightedIndex => {
+    if (this.listRef.current !== null) {
+      this.listRef.current.scrollToItem(highlightedIndex)
+    }
   }
 
   render() {
@@ -171,6 +151,7 @@ class App extends React.Component {
           onChange={this.handleChange}
           items={this.state.items}
           itemToString={itemToString}
+          listRef={this.listRef}
         />
       </div>
     )
