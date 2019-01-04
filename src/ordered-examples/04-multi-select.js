@@ -17,6 +17,7 @@ class MultiDownshift extends React.Component {
           ...changes,
           highlightedIndex: state.highlightedIndex,
           isOpen: true,
+          inputValue: '',
         }
       default:
         return changes
