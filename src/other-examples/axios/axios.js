@@ -57,7 +57,7 @@ class Axios extends React.Component {
         this.setState({data: undefined, error: e.message, loading: false})
         console.error(e)
       })
-  }, 200)
+  }, {wait: 200})
 
   fetchData = () => {
     if (this.cancelToken) {
