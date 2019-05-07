@@ -208,7 +208,7 @@ class App extends React.Component {
                   <input
                     {...getInputProps({
                       ref: this.input,
-                      onKeyUp(event) {
+                      onKeyDown(event) {
                         if (event.key === 'Backspace' && !inputValue) {
                           removeItem(selectedItems[selectedItems.length - 1])
                         }
