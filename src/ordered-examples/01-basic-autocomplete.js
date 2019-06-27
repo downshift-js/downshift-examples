@@ -12,7 +12,13 @@ const items = [
 
 export default () => (
   <Downshift
-    onChange={selection => alert(`You selected ${selection.value}`)}
+    onChange={selection => {
+      if (selection) {
+        alert(`You selected ${selection.value}`)
+      } else {
+        alert('selection cleared')
+      }
+    }}
     itemToString={item => (item ? item.value : '')}
   >
     {({

@@ -14,7 +14,6 @@
 //   }
 // }
 import React from 'react'
-import {render} from 'react-dom'
 import Downshift from 'downshift'
 
 const items = [
@@ -27,7 +26,13 @@ const items = [
 
 export default () => (
   <Downshift
-    onChange={selection => alert(`You selected ${selection.value}`)}
+    onChange={selection => {
+      if (selection) {
+        alert(`You selected ${selection.value}`)
+      } else {
+        alert('selection cleared')
+      }
+    }}
     itemToString={item => (item ? item.value : '')}
   >
     {({
