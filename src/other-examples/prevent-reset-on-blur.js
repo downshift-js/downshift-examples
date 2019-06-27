@@ -1,5 +1,4 @@
 import React from 'react'
-import {render} from 'react-dom'
 import Downshift from 'downshift'
 
 const items = [
@@ -19,7 +18,13 @@ function preventResetOnBlur(state, changes) {
 
 export default () => (
   <Downshift
-    onChange={selection => alert(`You selected ${selection.value}`)}
+    onChange={selection => {
+      if (selection) {
+        alert(`You selected ${selection.value}`)
+      } else {
+        alert('selection cleared')
+      }
+    }}
     stateReducer={preventResetOnBlur}
     itemToString={item => (item ? item.value : '')}
   >

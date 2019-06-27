@@ -1,5 +1,4 @@
-import React, {Component} from 'react'
-import {render} from 'react-dom'
+import React from 'react'
 import Downshift from 'downshift'
 import {List} from 'react-virtualized'
 import debounce from 'debounce-fn'
