@@ -1,11 +1,12 @@
 import React from 'react'
+import {render} from 'react-dom'
 import CustomDropdown from './CustomDropdown/index'
 import FeatherIcon from 'feather-icons-react'
 import styled from 'styled-components'
 import {itemsArray} from './data'
 import PenguinImage from './CustomDropdown/images/penguin.png'
 
-const renderSocial = socialMedia => {
+const renderSocial = (socialMedia) => {
   return (
     <Item>
       <Name>{socialMedia.name}</Name>
@@ -27,7 +28,7 @@ function App() {
         items={itemsArray}
         renderItem={renderSocial}
         downShiftProps={{
-          itemToString: selectedItem => {
+          itemToString: (selectedItem) => {
             if (selectedItem && selectedItem.name) {
               return String(selectedItem.name)
             }
@@ -71,4 +72,4 @@ const Penguin = styled.div`
   }
 `
 
-export default App
+render(<App />, document.getElementById('root'))

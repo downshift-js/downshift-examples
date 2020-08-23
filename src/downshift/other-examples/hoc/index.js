@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {render} from 'react-dom'
 import {
   Downshift,
@@ -12,14 +12,13 @@ import {
 import {
   css,
   getItems,
-  Label,
   Menu,
   ControllerButton,
   Input,
   Item,
   ArrowIcon,
   XIcon,
-} from '../../shared'
+} from '../../../shared'
 
 const MyDownshiftButton = withDownshift(
   ({downshift: {selectedItem, isOpen, clearSelection}}) =>
@@ -53,40 +52,23 @@ const MyDownshiftMenu = withDownshift(
     },
   }) => (
     <Menu isOpen={isOpen}>
-      {getItems(inputValue).map(
-        (item, index) =>
-          isOpen ? (
-            <DownshiftItem
-              component={Item}
-              key={item.id}
-              item={item}
-              index={index}
-              isActive={highlightedIndex === index}
-              isSelected={selectedItem === item}
-            >
-              {itemToString(item)}
-            </DownshiftItem>
-          ) : null,
+      {getItems(inputValue).map((item, index) =>
+        isOpen ? (
+          <DownshiftItem
+            component={Item}
+            key={item.id}
+            item={item}
+            index={index}
+            isActive={highlightedIndex === index}
+            isSelected={selectedItem === item}
+          >
+            {itemToString(item)}
+          </DownshiftItem>
+        ) : null,
       )}
     </Menu>
   ),
 )
-
-function ExampleDownshift({items, ...rest}) {
-  return (
-    <Downshift
-      {...css({width: 250, margin: 'auto', position: 'relative'})}
-      downshiftOptions={rest}
-    >
-      <DownshiftLabel>Find a Star Wars character</DownshiftLabel>
-      <div style={{position: 'relative'}}>
-        <MyDownshiftInput />
-        <MyDownshiftButton />
-      </div>
-      <MyDownshiftMenu items={items} />
-    </Downshift>
-  )
-}
 
 function App() {
   return (
@@ -100,10 +82,10 @@ function App() {
     >
       <h2>Downshift HOC + Compound Components example</h2>
       <Downshift
-        onChange={selection =>
+        onChange={(selection) =>
           selection ? alert(`You selected ${selection.name}`) : null
         }
-        itemToString={item => (item ? item.name : '')}
+        itemToString={(item) => (item ? item.name : '')}
       >
         <div {...css({width: 250, margin: 'auto', position: 'relative'})}>
           <DownshiftLabel>Find a Star Wars character</DownshiftLabel>
@@ -118,4 +100,4 @@ function App() {
   )
 }
 
-export default App
+render(<App />, document.getElementById('root'))

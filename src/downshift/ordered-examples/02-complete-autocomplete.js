@@ -4,6 +4,7 @@
 // which you may also want to become familiar with as many
 // examples will use those as well.
 import React from 'react'
+import {render} from 'react-dom'
 import Downshift from 'downshift'
 import {
   Label,
@@ -98,5 +99,4 @@ class App extends React.Component {
     )
   }
 }
-
-export default App
+render(<App />, document.getElementById('root'))

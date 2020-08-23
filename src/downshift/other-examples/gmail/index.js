@@ -1,10 +1,11 @@
 import React from 'react'
+import {render} from 'react-dom'
 import Downshift from 'downshift'
 import {List} from 'react-virtualized'
 import debounce from 'debounce-fn'
 import {fetchContacts} from './utils'
 import {ComposeMail, Recipient} from './components'
-import {css} from '../../shared'
+import {css} from '../../../shared'
 
 class RecipientInput extends React.Component {
   input = React.createRef()
@@ -23,7 +24,7 @@ class RecipientInput extends React.Component {
   removeContact(contact) {
     this.setState(
       ({selectedContacts}) => ({
-        selectedContacts: selectedContacts.filter(c => c !== contact),
+        selectedContacts: selectedContacts.filter((c) => c !== contact),
       }),
       () => {
         this.input.current.focus()
@@ -76,7 +77,7 @@ class RecipientInput extends React.Component {
       }
     }
   }
-  itemToString = i => {
+  itemToString = (i) => {
     return i ? (i.name === i.email ? i.name : `${i.name} (${i.email})`) : ''
   }
   render() {
@@ -116,7 +117,7 @@ class RecipientInput extends React.Component {
                 flexWrap: 'wrap',
               })}
             >
-              {selectedContacts.map(c => (
+              {selectedContacts.map((c) => (
                 <Recipient
                   key={c.id}
                   isValid={c.email.includes('@')}
@@ -128,7 +129,7 @@ class RecipientInput extends React.Component {
               <input
                 {...getInputProps({
                   ref: this.input,
-                  onKeyDown: event =>
+                  onKeyDown: (event) =>
                     this.handleInputKeyDown({
                       event,
                       selectHighlightedItem,
@@ -302,7 +303,9 @@ class App extends React.Component {
     return (
       <div>
         <ComposeMail>
-          <RecipientInput onChange={selection => this.setState({selection})} />
+          <RecipientInput
+            onChange={(selection) => this.setState({selection})}
+          />
         </ComposeMail>
         <hr />
         Selection: <pre>{JSON.stringify(this.state.selection, null, 2)}</pre>
@@ -311,4 +314,4 @@ class App extends React.Component {
   }
 }
 
-export default App
+render(<App />, document.getElementById('root'))

@@ -7,7 +7,7 @@ import {
   useQuery,
 } from '@apollo/client'
 import {useCombobox} from 'downshift'
-import {menuStyles, comboboxStyles} from '../utils'
+import {menuStyles, comboboxStyles} from './utils'
 
 const client = new ApolloClient({
   uri: 'https://api.graph.cool/simple/v1/cj5k7w90bjt2i0122z6v0syvu',

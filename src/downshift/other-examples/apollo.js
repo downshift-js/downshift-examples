@@ -1,4 +1,5 @@
 import React from 'react'
+import {render} from 'react-dom'
 import {ApolloProvider, Query} from 'react-apollo'
 import ApolloClient from 'apollo-boost'
 import gql from 'graphql-tag'
@@ -119,4 +120,4 @@ function ApolloExample() {
   )
 }
 
-export default ApolloExample
+render(<ApolloExample />, document.getElementById('root'))

@@ -2,6 +2,7 @@
 // the user types as the selectedItem in addition to allowing
 // the user to select a shown menu item.
 import React from 'react'
+import {render} from 'react-dom'
 import Downshift from 'downshift'
 import {
   Label,
@@ -101,4 +102,4 @@ class App extends React.Component {
   }
 }
 
-export default App
+render(<App />, document.getElementById('root'))
