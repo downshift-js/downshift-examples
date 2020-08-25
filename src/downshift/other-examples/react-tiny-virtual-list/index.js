@@ -1,4 +1,5 @@
 import React from 'react'
+import {render} from 'react-dom'
 import VirtualList from 'react-tiny-virtual-list'
 import starWarsNames from 'starwars-names'
 import Downshift from 'downshift'
@@ -13,7 +14,7 @@ import {
   css,
   getItems,
   itemToString,
-} from '../../shared'
+} from '../../../shared'
 
 function ExampleDownshift({itemToString, items, ...rest}) {
   return (
@@ -85,7 +86,7 @@ function ExampleDownshift({itemToString, items, ...rest}) {
 }
 
 class App extends React.Component {
-  allItems = starWarsNames.all.map(s => ({name: s, id: s.toLowerCase()}))
+  allItems = starWarsNames.all.map((s) => ({name: s, id: s.toLowerCase()}))
   state = {items: this.allItems}
   handleStateChange = (changes, downshiftState) => {
     if (changes.hasOwnProperty('inputValue')) {
@@ -122,4 +123,4 @@ class App extends React.Component {
   }
 }
 
-export default App
+render(<App />, document.getElementById('root'))
