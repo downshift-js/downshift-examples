@@ -3,6 +3,7 @@
 // like the MultiDownshift one you see here:
 
 import React from 'react'
+import {render} from 'react-dom'
 import Downshift from 'downshift'
 import {
   Menu,
@@ -267,4 +268,4 @@ class App extends React.Component {
   }
 }
 
-export default App
+render(<App />, document.getElementById('root'))

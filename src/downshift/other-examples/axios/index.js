@@ -1,4 +1,5 @@
 import React from 'react'
+import {render} from 'react-dom'
 import Downshift from 'downshift'
 import {
   Label,
@@ -9,7 +10,7 @@ import {
   ArrowIcon,
   XIcon,
   css,
-} from '../../shared'
+} from '../../../shared'
 import Axios from './axios'
 
 const baseEndpoint = 'https://api.github.com/search/repositories'
@@ -114,4 +115,4 @@ class AxiosExample extends React.Component {
   }
 }
 
-export default AxiosExample
+render(<AxiosExample />, document.getElementById('root'))

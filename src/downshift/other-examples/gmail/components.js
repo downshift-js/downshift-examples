@@ -1,5 +1,5 @@
 import React from 'react'
-import {css} from '../../shared'
+import {css} from '../../../shared'
 
 function ComposeMail({children}) {
   return (
