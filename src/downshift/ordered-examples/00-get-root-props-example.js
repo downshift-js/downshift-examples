@@ -26,10 +26,16 @@ render(
       inputValue,
       highlightedIndex,
       selectedItem,
+      getRootProps,
     }) => (
       <div>
         <label {...getLabelProps()}>Enter a fruit</label>
-        <input {...getInputProps()} />
+        <div
+          style={{display: 'inline-block'}}
+          {...getRootProps({}, {suppressRefError: true})}
+        >
+          <input {...getInputProps()} />
+        </div>
         <ul {...getMenuProps()}>
           {isOpen
             ? items

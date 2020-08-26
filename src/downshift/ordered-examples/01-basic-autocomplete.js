@@ -1,5 +1,5 @@
-// here's an extremely bare bones example of an autocomplete
 import React from 'react'
+import {render} from 'react-dom'
 import Downshift from 'downshift'
 
 const items = [
@@ -10,16 +10,12 @@ const items = [
   {value: 'banana'},
 ]
 
-export default () => (
+render(
   <Downshift
-    onChange={selection => {
-      if (selection) {
-        alert(`You selected ${selection.value}`)
-      } else {
-        alert('selection cleared')
-      }
-    }}
-    itemToString={item => (item ? item.value : '')}
+    onChange={(selection) =>
+      alert(selection ? `You selected ${selection.value}` : 'Selection Cleared')
+    }
+    itemToString={(item) => (item ? item.value : '')}
   >
     {({
       getInputProps,
@@ -37,7 +33,9 @@ export default () => (
         <ul {...getMenuProps()}>
           {isOpen
             ? items
-                .filter(item => !inputValue || item.value.includes(inputValue))
+                .filter(
+                  (item) => !inputValue || item.value.includes(inputValue),
+                )
                 .map((item, index) => (
                   <li
                     {...getItemProps({
@@ -46,7 +44,7 @@ export default () => (
                       item,
                       style: {
                         backgroundColor:
-                          highlightedIndex === index ? 'lightgray' : null,
+                          highlightedIndex === index ? 'lightgray' : 'white',
                         fontWeight: selectedItem === item ? 'bold' : 'normal',
                       },
                     })}
@@ -58,5 +56,6 @@ export default () => (
         </ul>
       </div>
     )}
-  </Downshift>
+  </Downshift>,
+  document.getElementById('root'),
 )
