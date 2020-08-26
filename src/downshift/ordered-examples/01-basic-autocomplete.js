@@ -1,13 +1,22 @@
 import React from 'react'
 import {render} from 'react-dom'
 import Downshift from 'downshift'
-import {items, menuStyles, comboboxStyles} from '../../shared'
+import {menuStyles, comboboxStyles} from '../../shared'
+
+const items = [
+  {value: 'apple'},
+  {value: 'pear'},
+  {value: 'orange'},
+  {value: 'grape'},
+  {value: 'banana'},
+]
 
 render(
   <Downshift
     onChange={(selection) =>
-      alert(selection ? `You selected ${selection}` : 'Selection Cleared')
+      alert(selection ? `You selected ${selection.value}` : 'Selection Cleared')
     }
+    itemToString={(item) => (item ? item.value : '')}
   >
     {({
       getInputProps,
