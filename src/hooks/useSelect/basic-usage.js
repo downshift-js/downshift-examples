@@ -1,7 +1,7 @@
 import React from 'react'
 import {render} from 'react-dom'
 import {useSelect} from 'downshift'
-import {items, menuStyles} from '../utils'
+import {items, menuStyles} from '../../shared'
 
 function DropdownSelect() {
   const {

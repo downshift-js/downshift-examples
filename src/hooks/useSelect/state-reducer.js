@@ -1,7 +1,7 @@
 import React from 'react'
 import {render} from 'react-dom'
 import {useSelect} from 'downshift'
-import {items, menuStyles} from '../utils'
+import {items, menuStyles} from '../../shared'
 
 function stateReducer(state, actionAndChanges) {
   const {type, changes} = actionAndChanges

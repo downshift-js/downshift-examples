@@ -1,58 +1,51 @@
 import React from 'react'
 import {render} from 'react-dom'
 import Downshift from 'downshift'
-
-const items = [
-  {value: 'apple'},
-  {value: 'pear'},
-  {value: 'orange'},
-  {value: 'grape'},
-  {value: 'banana'},
-]
+import {items, menuStyles, comboboxStyles} from '../../shared'
 
 render(
   <Downshift
     onChange={(selection) =>
-      alert(selection ? `You selected ${selection.value}` : 'Selection Cleared')
+      alert(selection ? `You selected ${selection}` : 'Selection Cleared')
     }
-    itemToString={(item) => (item ? item.value : '')}
   >
     {({
       getInputProps,
       getItemProps,
-      getLabelProps,
       getMenuProps,
-      isOpen,
+      getLabelProps,
+      getToggleButtonProps,
       inputValue,
       highlightedIndex,
       selectedItem,
+      isOpen,
     }) => (
-      <div>
-        <label {...getLabelProps()}>Enter a fruit</label>
+      <div style={comboboxStyles}>
+        <label {...getLabelProps()}>Choose an element:</label>
         <input {...getInputProps()} />
-        <ul {...getMenuProps()}>
-          {isOpen
-            ? items
-                .filter(
-                  (item) => !inputValue || item.value.includes(inputValue),
-                )
-                .map((item, index) => (
-                  <li
-                    {...getItemProps({
-                      key: item.value,
-                      index,
-                      item,
-                      style: {
-                        backgroundColor:
-                          highlightedIndex === index ? 'lightgray' : 'white',
-                        fontWeight: selectedItem === item ? 'bold' : 'normal',
-                      },
-                    })}
-                  >
-                    {item.value}
-                  </li>
-                ))
-            : null}
+        <button {...getToggleButtonProps()} aria-label={'toggle menu'}>
+          &#8595;
+        </button>
+        <ul {...getMenuProps()} style={menuStyles}>
+          {isOpen &&
+            items
+              .filter((item) => !inputValue || item.includes(inputValue))
+              .map((item, index) => (
+                <li
+                  {...getItemProps({
+                    key: `${item}${index}`,
+                    item,
+                    index,
+                    style: {
+                      backgroundColor:
+                        highlightedIndex === index ? 'lightgray' : 'white',
+                      fontWeight: selectedItem === item ? 'bold' : 'normal',
+                    },
+                  })}
+                >
+                  {item}
+                </li>
+              ))}
         </ul>
       </div>
     )}

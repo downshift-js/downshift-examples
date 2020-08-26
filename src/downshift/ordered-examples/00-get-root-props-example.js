@@ -1,27 +1,20 @@
 import React from 'react'
 import {render} from 'react-dom'
 import Downshift from 'downshift'
-
-const items = [
-  {value: 'apple'},
-  {value: 'pear'},
-  {value: 'orange'},
-  {value: 'grape'},
-  {value: 'banana'},
-]
+import {items, menuStyles, comboboxStyles} from '../../shared'
 
 render(
   <Downshift
     onChange={(selection) =>
-      alert(selection ? `You selected ${selection.value}` : 'Selection Cleared')
+      alert(selection ? `You selected ${selection}` : 'Selection Cleared')
     }
-    itemToString={(item) => (item ? item.value : '')}
   >
     {({
       getInputProps,
       getItemProps,
       getLabelProps,
       getMenuProps,
+      getToggleButtonProps,
       isOpen,
       inputValue,
       highlightedIndex,
@@ -29,23 +22,24 @@ render(
       getRootProps,
     }) => (
       <div>
-        <label {...getLabelProps()}>Enter a fruit</label>
+        <label {...getLabelProps()}>Choose an element:</label>
         <div
-          style={{display: 'inline-block'}}
+          style={comboboxStyles}
           {...getRootProps({}, {suppressRefError: true})}
         >
           <input {...getInputProps()} />
+          <button {...getToggleButtonProps()} aria-label={'toggle menu'}>
+            &#8595;
+          </button>
         </div>
-        <ul {...getMenuProps()}>
+        <ul {...getMenuProps()} style={menuStyles}>
           {isOpen
             ? items
-                .filter(
-                  (item) => !inputValue || item.value.includes(inputValue),
-                )
+                .filter((item) => !inputValue || item.includes(inputValue))
                 .map((item, index) => (
                   <li
                     {...getItemProps({
-                      key: item.value,
+                      key: item,
                       index,
                       item,
                       style: {
@@ -55,7 +49,7 @@ render(
                       },
                     })}
                   >
-                    {item.value}
+                    {item}
                   </li>
                 ))
             : null}

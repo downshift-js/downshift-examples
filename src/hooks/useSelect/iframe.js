@@ -2,7 +2,7 @@ import React from 'react'
 import {render} from 'react-dom'
 import {useSelect} from 'downshift'
 import Frame, {FrameContextConsumer} from 'react-frame-component'
-import {items, menuStyles} from '../utils'
+import {items, menuStyles} from '../../shared'
 
 function DropdownSelect({environment}) {
   const {

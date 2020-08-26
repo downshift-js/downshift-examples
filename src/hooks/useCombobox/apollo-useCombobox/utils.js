@@ -12,6 +12,4 @@ export const menuStyles = {
   left: '150px',
 }
 
-export const playgroundStyles = {height: '160px'}
-
 export const comboboxStyles = {display: 'inline-block', marginLeft: '5px'}
