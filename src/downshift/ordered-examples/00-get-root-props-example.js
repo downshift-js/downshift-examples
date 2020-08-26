@@ -31,7 +31,7 @@ render(
       getRootProps,
     }) => (
       <div>
-        <label {...getLabelProps()}>Choose an element:</label>
+        <label {...getLabelProps()}>Enter a fruit:</label>
         <div
           style={comboboxStyles}
           {...getRootProps({}, {suppressRefError: true})}
@@ -44,11 +44,11 @@ render(
         <ul {...getMenuProps()} style={menuStyles}>
           {isOpen
             ? items
-                .filter((item) => !inputValue || item.includes(inputValue))
+                .filter((item) => !inputValue || item.value.includes(inputValue))
                 .map((item, index) => (
                   <li
                     {...getItemProps({
-                      key: item,
+                      key: item.value,
                       index,
                       item,
                       style: {
@@ -58,7 +58,7 @@ render(
                       },
                     })}
                   >
-                    {item}
+                    {item.value}
                   </li>
                 ))
             : null}
