@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {useVirtual} from 'react-virtual'
 import {useCombobox} from 'downshift'
-import {items, menuStyles} from '../utils'
+import {items, menuStyles} from '../../shared'
 
 function getItems(search) {
   return items.filter((n) => n.toLowerCase().includes(search))

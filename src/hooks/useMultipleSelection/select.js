@@ -6,7 +6,7 @@ import {
   menuMultipleStlyes,
   selectedItemStyles,
   selectedItemIconStyles,
-} from '../utils'
+} from '../../shared'
 
 function DropdownMultipleSelect() {
   const {

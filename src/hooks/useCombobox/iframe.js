@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {render} from 'react-dom'
 import {useCombobox} from 'downshift'
 import Frame, {FrameContextConsumer} from 'react-frame-component'
-import {items, menuStyles, comboboxStyles} from '../utils'
+import {items, menuStyles, comboboxStyles} from '../../shared'
 
 function DropdownCombobox() {
   const [inputItems, setInputItems] = useState(items)

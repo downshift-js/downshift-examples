@@ -8,7 +8,7 @@ import {
   comboboxWrapperStyles,
   selectedItemStyles,
   selectedItemIconStyles,
-} from '../utils'
+} from '../../shared'
 
 function DropdownMultipleCombobox() {
   const [inputValue, setInputValue] = useState('')

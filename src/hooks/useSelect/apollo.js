@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import {render} from 'react-dom'
 import {
   ApolloProvider,
   ApolloClient,
@@ -90,4 +91,4 @@ const SEARCH_COLORS = gql`
   }
 `
 
-export default ApolloUseSelectExample
+render(<ApolloUseSelectExample />, document.getElementById('root'))

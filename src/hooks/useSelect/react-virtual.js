@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {useVirtual} from 'react-virtual'
 import {useSelect} from 'downshift'
-import {items, menuStyles} from '../utils'
+import {items, menuStyles} from '../../shared'
 
 export default function App() {
   const listRef = React.useRef()
