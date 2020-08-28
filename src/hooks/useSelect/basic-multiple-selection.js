@@ -54,7 +54,9 @@ function DropdownSelect() {
   return (
     <div>
       <label {...getLabelProps()}>Choose an element:</label>
-      <button {...getToggleButtonProps()}>{buttonText}</button>
+      <button type="button" {...getToggleButtonProps()}>
+        {buttonText}
+      </button>
       <ul {...getMenuProps()} style={menuStyles}>
         {isOpen &&
           items.map((item, index) => (

@@ -54,7 +54,7 @@ function ApolloUseSelect() {
     <div>
       <label {...getLabelProps()}>Colors</label>
       <br />
-      <button {...getToggleButtonProps()}>
+      <button type="button" {...getToggleButtonProps()}>
         {selectedItem ? itemToString(selectedItem) : 'Elements'}
       </button>
       <ul {...getMenuProps()}>

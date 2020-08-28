@@ -32,7 +32,11 @@ export default function App() {
   return (
     <div>
       <label {...getLabelProps()}>Choose an element:</label>
-      <button data-testid="select-toggle-button" {...getToggleButtonProps()}>
+      <button
+        type="button"
+        data-testid="select-toggle-button"
+        {...getToggleButtonProps()}
+      >
         {selectedItem || 'Elements'}
       </button>
       <ul
