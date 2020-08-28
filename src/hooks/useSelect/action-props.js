@@ -19,6 +19,7 @@ function DropdownSelect() {
     <div>
       <label {...getLabelProps()}>Choose an element:</label>
       <button
+        type="button"
         {...getToggleButtonProps({
           onMouseEnter: () => {
             openMenu()
@@ -28,6 +29,7 @@ function DropdownSelect() {
         {selectedItem || 'Elements'}
       </button>
       <button
+        type="button"
         tabindex={-1}
         onClick={() => {
           selectItem(null)
