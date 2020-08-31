@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import {render} from 'react-dom'
 import {
   ApolloProvider,
   ApolloClient,
@@ -103,4 +104,4 @@ const SEARCH_COLORS = gql`
   }
 `
 
-export default ApolloUseComboboxExample
+render(<ApolloUseComboboxExample />, document.getElementById('root'))
