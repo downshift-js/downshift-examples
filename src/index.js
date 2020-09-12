@@ -10,8 +10,9 @@ function App() {
           This is an example project of how to use downshift to build
           enhanced input experiences (autocomplete, dropdown, etc).
           Open a file in the examples directory within codesandbox and
-          then toggle the "Current Module View" in the upper-right of
-          the browser preview.
+          then go to the "Current Module View" by clicking the icon 
+          labeled "Project View" in the upper-right of the browser 
+          preview.
         `}</p>
         <p>
           <a href="https://codesandbox.io/s/github/kentcdodds/downshift-examples">
