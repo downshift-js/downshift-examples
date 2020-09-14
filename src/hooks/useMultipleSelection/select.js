@@ -3,7 +3,7 @@ import {render} from 'react-dom'
 import {useSelect, useMultipleSelection} from 'downshift'
 import {
   items,
-  menuMultipleStlyes,
+  menuMultipleStyles,
   selectedItemStyles,
   selectedItemIconStyles,
 } from '../../shared'
@@ -68,7 +68,7 @@ function DropdownMultipleSelect() {
       >
         {selectedItem || 'Elements'}
       </button>
-      <ul {...getMenuProps()} style={menuMultipleStlyes}>
+      <ul {...getMenuProps()} style={menuMultipleStyles}>
         {isOpen &&
           items.map((item, index) => (
             <li

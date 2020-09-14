@@ -3,7 +3,7 @@ import {render} from 'react-dom'
 import {useCombobox, useMultipleSelection} from 'downshift'
 import {
   items,
-  menuMultipleStlyes,
+  menuMultipleStyles,
   comboboxStyles,
   comboboxWrapperStyles,
   selectedItemStyles,
@@ -86,7 +86,7 @@ function DropdownMultipleCombobox() {
           </button>
         </div>
       </div>
-      <ul {...getMenuProps()} style={menuMultipleStlyes}>
+      <ul {...getMenuProps()} style={menuMultipleStyles}>
         {isOpen &&
           getFilteredItems(items).map((item, index) => (
             <li

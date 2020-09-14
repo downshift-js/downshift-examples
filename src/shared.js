@@ -231,7 +231,7 @@ const menuStyles = {
   position: 'relative',
 }
 
-const menuMultipleStlyes = {
+const menuMultipleStyles = {
   maxHeight: '180px',
   overflowY: 'auto',
   width: '135px',
@@ -261,7 +261,7 @@ const comboboxWrapperStyles = {
 }
 
 export {
-  menuMultipleStlyes,
+  menuMultipleStyles,
   items,
   menuStyles,
   comboboxStyles,
