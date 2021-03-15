@@ -70,7 +70,7 @@ function DropdownMultipleSelect() {
       </button>
       <ul {...getMenuProps()} style={menuMultipleStyles}>
         {isOpen &&
-          items.map((item, index) => (
+          getFilteredItems(items).map((item, index) => (
             <li
               style={
                 highlightedIndex === index ? {backgroundColor: '#bde4ff'} : {}
