@@ -44,7 +44,9 @@ render(
         <ul {...getMenuProps()} style={menuStyles}>
           {isOpen
             ? items
-                .filter((item) => !inputValue || item.value.includes(inputValue))
+                .filter(
+                  (item) => !inputValue || item.value.includes(inputValue),
+                )
                 .map((item, index) => (
                   <li
                     {...getItemProps({
