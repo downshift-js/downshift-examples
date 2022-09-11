@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {render} from 'react-dom'
 import {useSelect} from 'downshift'
-import {items, menuStyles} from '../../shared'
+import {items, menuStyles, toggleElementStyles} from '../../shared'
 
 function stateReducer(state, actionAndChanges) {
   const {changes, type} = actionAndChanges
@@ -54,9 +54,9 @@ function DropdownSelect() {
   return (
     <div>
       <label {...getLabelProps()}>Choose an element:</label>
-      <button type="button" {...getToggleButtonProps()}>
+      <div style={toggleElementStyles} {...getToggleButtonProps()}>
         {buttonText}
-      </button>
+      </div>
       <ul {...getMenuProps()} style={menuStyles}>
         {isOpen &&
           items.map((item, index) => (

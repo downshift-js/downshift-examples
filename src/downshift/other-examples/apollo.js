@@ -2,7 +2,6 @@ import React from 'react'
 import {render} from 'react-dom'
 import {ApolloProvider, Query} from 'react-apollo'
 import ApolloClient from 'apollo-boost'
-import gql from 'graphql-tag'
 import Downshift from 'downshift'
 import {
   Label,
@@ -13,19 +12,13 @@ import {
   ArrowIcon,
   XIcon,
   css,
+  gqlUri,
+  SEARCH_CHARACTERS,
 } from '../../shared'
 
 const client = new ApolloClient({
-  uri: 'https://api.graph.cool/simple/v1/cj5k7w90bjt2i0122z6v0syvu',
+  uri: gqlUri,
 })
-
-const SEARCH_COLORS = gql`
-  query AllColors($inputValue: String!) {
-    allColors(filter: {name_contains: $inputValue}) {
-      name
-    }
-  }
-`
 
 function ApolloAutocomplete() {
   return (
@@ -43,12 +36,12 @@ function ApolloAutocomplete() {
         clearSelection,
       }) => (
         <div {...css({width: 250, margin: 'auto', position: 'relative'})}>
-          <Label {...getLabelProps()}>Select a color</Label>
+          <Label {...getLabelProps()}>Choose a character</Label>
           <div {...css({position: 'relative'})}>
             <Input
               {...getInputProps({
                 isOpen,
-                placeholder: 'Enter a color',
+                placeholder: 'Mr. Nimbus',
               })}
             />
             {selectedItem ? (
@@ -67,12 +60,12 @@ function ApolloAutocomplete() {
           <Menu {...getMenuProps({isOpen})}>
             {isOpen && (
               <Query
-                query={SEARCH_COLORS}
+                query={SEARCH_CHARACTERS}
                 variables={{
                   inputValue,
                 }}
               >
-                {({loading, error, data: {allColors = []} = {}}) => {
+                {({loading, error, data = {}}) => {
                   if (loading) {
                     return <Item disabled>Loading...</Item>
                   }
@@ -81,7 +74,13 @@ function ApolloAutocomplete() {
                     return <Item disabled>Error! ${error.message}</Item>
                   }
 
-                  return allColors.map(({name: item}, index) => (
+                  const {results} = data.characters
+
+                  if (!results || !results.length) {
+                    return <Item disabled>No characters found...</Item>
+                  }
+
+                  return results.map(({name: item}, index) => (
                     <Item
                       key={item}
                       {...getItemProps({
