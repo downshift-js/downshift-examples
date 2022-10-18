@@ -7,11 +7,12 @@ import {
   gql,
   useQuery,
 } from '@apollo/client'
+import {SEARCH_CHARACTERS, gqlUri} from '../../../shared'
 import {useCombobox} from 'downshift'
 import {menuStyles, comboboxStyles} from './utils'
 
 const client = new ApolloClient({
-  uri: 'https://api.graph.cool/simple/v1/cj5k7w90bjt2i0122z6v0syvu',
+  uri: gqlUri,
   cache: new InMemoryCache(),
 })
 
@@ -24,15 +25,15 @@ function ApolloUseComboboxExample() {
 }
 
 function ApolloUseCombobox() {
-  const {loading, error, data} = useQuery(SEARCH_COLORS)
+  const {loading, error, data} = useQuery(SEARCH_CHARACTERS)
   const [allItems, setAllItems] = useState([])
   const [inputItems, setInputItems] = useState([])
 
   useEffect(() => {
     if (data) {
-      const {allColors} = data
-      setAllItems(allColors)
-      setInputItems(allColors)
+      const {characters} = data
+      setAllItems(characters.results)
+      setInputItems(characters.results)
     }
   }, [data])
 
@@ -46,7 +47,6 @@ function ApolloUseCombobox() {
     highlightedIndex,
     getItemProps,
     getInputProps,
-    getComboboxProps,
   } = useCombobox({
     items: inputItems,
     itemToString,
@@ -64,7 +64,7 @@ function ApolloUseCombobox() {
   return (
     <div>
       <label {...getLabelProps()}>Choose an element:</label>
-      <div style={comboboxStyles} {...getComboboxProps()}>
+      <div style={comboboxStyles}>
         <input {...getInputProps()} />
         <button
           type="button"

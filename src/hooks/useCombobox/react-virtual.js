@@ -28,7 +28,6 @@ export default function App() {
     getMenuProps,
     highlightedIndex,
     selectedItem,
-    getComboboxProps,
     isOpen,
   } = useCombobox({
     items,
@@ -43,7 +42,7 @@ export default function App() {
     <div>
       <div>
         <label {...getLabelProps()}>Choose an element:</label>
-        <div {...getComboboxProps()}>
+        <div>
           <input {...getInputProps({type: 'text'})} />
         </div>
       </div>

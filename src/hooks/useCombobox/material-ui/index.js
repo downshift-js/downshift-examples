@@ -25,7 +25,6 @@ function DropdownCombobox() {
     highlightedIndex,
     getItemProps,
     getInputProps,
-    getComboboxProps,
   } = useCombobox({
     items: inputItems,
     itemToString,
@@ -40,7 +39,7 @@ function DropdownCombobox() {
   return (
     <div>
       <FormLabel {...getLabelProps()}>Choose an employee:</FormLabel>
-      <div style={comboboxStyles} {...getComboboxProps()}>
+      <div style={comboboxStyles}>
         <Input
           placeholder="Employees"
           {...getInputProps({refKey: 'inputRef'})}

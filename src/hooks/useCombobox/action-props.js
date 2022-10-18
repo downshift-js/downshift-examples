@@ -11,7 +11,6 @@ function DropdownCombobox() {
     getLabelProps,
     getMenuProps,
     getInputProps,
-    getComboboxProps,
     highlightedIndex,
     getItemProps,
     openMenu,
@@ -29,7 +28,7 @@ function DropdownCombobox() {
   return (
     <div>
       <label {...getLabelProps()}>Choose an element:</label>
-      <div style={comboboxStyles} {...getComboboxProps()}>
+      <div style={comboboxStyles}>
         <input
           {...getInputProps({
             onFocus: () => {

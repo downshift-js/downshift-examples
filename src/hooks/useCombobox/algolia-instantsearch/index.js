@@ -11,7 +11,6 @@ import {useCombobox} from 'downshift'
 function RawAutoComplete({refine, hits}) {
   const {
     getInputProps,
-    getComboboxProps,
     getItemProps,
     getMenuProps,
     selectedItem,
@@ -26,7 +25,7 @@ function RawAutoComplete({refine, hits}) {
 
   return (
     <div>
-      <div {...getComboboxProps()}>
+      <div>
         <input {...getInputProps()} />
         <div {...getMenuProps()}>
           {isOpen &&
