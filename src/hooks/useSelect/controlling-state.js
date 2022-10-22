@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {render} from 'react-dom'
 import {useSelect} from 'downshift'
-import {items, menuStyles} from '../../shared'
+import {items, menuStyles, toggleElementStyles} from '../../shared'
 
 function DropdownSelect({selectedItem, handleSelectedItemChange}) {
   const {
@@ -19,9 +19,9 @@ function DropdownSelect({selectedItem, handleSelectedItemChange}) {
   return (
     <div>
       <label {...getLabelProps()}>Choose an element:</label>
-      <button type="button" {...getToggleButtonProps()}>
-        {selectedItem || 'Elements'}
-      </button>
+      <div style={toggleElementStyles} {...getToggleButtonProps()}>
+        {selectedItem ?? 'Elements'}
+      </div>
       <ul {...getMenuProps()} style={menuStyles}>
         {isOpen &&
           items.map((item, index) => (

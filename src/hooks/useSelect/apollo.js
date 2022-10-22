@@ -4,13 +4,18 @@ import {
   ApolloProvider,
   ApolloClient,
   InMemoryCache,
-  gql,
   useQuery,
 } from '@apollo/client'
 import {useSelect} from 'downshift'
+import {
+  toggleElementStyles,
+  menuStyles,
+  SEARCH_CHARACTERS,
+  gqlUri,
+} from '../../shared'
 
 const client = new ApolloClient({
-  uri: 'https://api.graph.cool/simple/v1/cj5k7w90bjt2i0122z6v0syvu',
+  uri: gqlUri,
   cache: new InMemoryCache(),
 })
 
@@ -23,17 +28,17 @@ function ApolloUseSelectExample() {
 }
 
 function ApolloUseSelect() {
-  const {loading, error, data} = useQuery(SEARCH_COLORS)
+  const {loading, error, data} = useQuery(SEARCH_CHARACTERS)
   const [items, setItems] = useState([])
 
   useEffect(() => {
     if (data) {
-      const {allColors} = data
-      setItems(allColors)
+      const {characters} = data
+      setItems(characters.results)
     }
   }, [data])
 
-  const itemToString = item => (item ? item.name : '')
+  const itemToString = (item) => (item ? item.name : '')
 
   const {
     isOpen,
@@ -52,12 +57,11 @@ function ApolloUseSelect() {
 
   return (
     <div>
-      <label {...getLabelProps()}>Colors</label>
-      <br />
-      <button type="button" {...getToggleButtonProps()}>
+      <label {...getLabelProps()}>Characters</label>
+      <div style={toggleElementStyles} {...getToggleButtonProps()}>
         {selectedItem ? itemToString(selectedItem) : 'Elements'}
-      </button>
-      <ul {...getMenuProps()}>
+      </div>
+      <ul style={menuStyles} {...getMenuProps()}>
         {isOpen && loading ? (
           <li>...Loading</li>
         ) : (
@@ -82,13 +86,5 @@ function ApolloUseSelect() {
     </div>
   )
 }
-
-const SEARCH_COLORS = gql`
-  query AllColors {
-    allColors {
-      name
-    }
-  }
-`
 
 render(<ApolloUseSelectExample />, document.getElementById('root'))

@@ -2,6 +2,7 @@ import React from 'react'
 import {css as emoCSS} from 'emotion'
 import {gql} from '@apollo/client'
 import styled from 'react-emotion'
+import {gql} from '@apollo/client'
 import starWarsNames from 'starwars-names'
 import matchSorter from 'match-sorter'
 
@@ -223,7 +224,7 @@ const items = [
 ]
 
 const menuStyles = {
-  maxHeight: 80,
+  maxHeight: 150,
   maxWidth: 300,
   overflowY: 'scroll',
   backgroundColor: '#eee',

@@ -6,6 +6,7 @@ import {
   menuMultipleStyles,
   selectedItemStyles,
   selectedItemIconStyles,
+  toggleElementStyles,
 } from '../../shared'
 
 function DropdownMultipleSelect() {
@@ -63,11 +64,12 @@ function DropdownMultipleSelect() {
           </span>
         </span>
       ))}
-      <button
+      <div
+        style={toggleElementStyles}
         {...getToggleButtonProps(getDropdownProps({preventKeyAction: isOpen}))}
       >
-        {selectedItem || 'Elements'}
-      </button>
+        {selectedItem ?? 'Elements'}
+      </div>
       <ul {...getMenuProps()} style={menuMultipleStyles}>
         {isOpen &&
           getFilteredItems(items).map((item, index) => (

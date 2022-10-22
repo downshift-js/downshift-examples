@@ -32,6 +32,7 @@ function DropdownSelect() {
     <div>
       <FormLabel {...getLabelProps()}>Choose an employee:</FormLabel>
       <Button
+        component="div"
         variant="contained"
         color="secondary"
         className={classes.button}

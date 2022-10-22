@@ -4,12 +4,12 @@ import {
   ApolloProvider,
   ApolloClient,
   InMemoryCache,
-  gql,
   useQuery,
 } from '@apollo/client'
 import {SEARCH_CHARACTERS, gqlUri} from '../../../shared'
 import {useCombobox} from 'downshift'
 import {menuStyles, comboboxStyles} from './utils'
+import {gqlUri, SEARCH_CHARACTERS} from '../../../shared'
 
 const client = new ApolloClient({
   uri: gqlUri,
@@ -95,13 +95,5 @@ function ApolloUseCombobox() {
     </div>
   )
 }
-
-const SEARCH_COLORS = gql`
-  query AllColors {
-    allColors {
-      name
-    }
-  }
-`
 
 render(<ApolloUseComboboxExample />, document.getElementById('root'))

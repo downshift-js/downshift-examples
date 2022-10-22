@@ -1,7 +1,7 @@
 import React from 'react'
 import {render} from 'react-dom'
 import {useSelect} from 'downshift'
-import {items, menuStyles} from '../../shared'
+import {items, menuStyles, toggleElementStyles} from '../../shared'
 
 function DropdownSelect() {
   const {
@@ -13,27 +13,25 @@ function DropdownSelect() {
     highlightedIndex,
     getItemProps,
     openMenu,
-    selectItem,
+    reset,
   } = useSelect({items})
   return (
     <div>
       <label {...getLabelProps()}>Choose an element:</label>
-      <button
-        type="button"
+      <div
+        style={toggleElementStyles}
         {...getToggleButtonProps({
           onMouseEnter: () => {
             openMenu()
           },
         })}
       >
-        {selectedItem || 'Elements'}
-      </button>
+        {selectedItem ?? 'Elements'}
+      </div>
       <button
         type="button"
-        tabindex={-1}
-        onClick={() => {
-          selectItem(null)
-        }}
+        tabIndex={-1}
+        onClick={reset}
         aria-label="clear selection"
       >
         &#215;
