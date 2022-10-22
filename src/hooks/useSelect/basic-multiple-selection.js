@@ -68,6 +68,7 @@ function DropdownSelect() {
               {...getItemProps({
                 item,
                 index,
+                'aria-selected': selectedItems.includes(item),
               })}
             >
               <input
