@@ -31,7 +31,6 @@ function DropdownMultipleCombobox() {
     getLabelProps,
     getMenuProps,
     getInputProps,
-    getComboboxProps,
     highlightedIndex,
     getItemProps,
     selectItem,
@@ -62,22 +61,21 @@ function DropdownMultipleCombobox() {
     <div>
       <label {...getLabelProps()}>Choose some elements:</label>
       <div style={comboboxWrapperStyles}>
-        {selectedItems.map((selectedItem, index) => (
+        <span
+          style={selectedItemStyles}
+          key={`selected-item-${index}`}
+          {...getSelectedItemProps({selectedItem, index})}
+        >
+          {selectedItem}
           <span
-            style={selectedItemStyles}
-            key={`selected-item-${index}`}
-            {...getSelectedItemProps({selectedItem, index})}
+            style={selectedItemIconStyles}
+            onClick={() => removeSelectedItem(selectedItem)}
           >
-            {selectedItem}
-            <span
-              style={selectedItemIconStyles}
-              onClick={() => removeSelectedItem(selectedItem)}
-            >
-              &#10005;
-            </span>
+            &#10005;
           </span>
+        </span>
         ))}
-        <div style={comboboxStyles} {...getComboboxProps()}>
+        <div style={comboboxStyles}>
           <input
             {...getInputProps(getDropdownProps({preventKeyAction: isOpen}))}
           />

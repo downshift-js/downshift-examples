@@ -4,7 +4,7 @@ import {useCombobox} from 'downshift'
 import Frame, {FrameContextConsumer} from 'react-frame-component'
 import {items, menuStyles, comboboxStyles} from '../../shared'
 
-function DropdownCombobox({ environment }) {
+function DropdownCombobox({environment}) {
   const [inputItems, setInputItems] = useState(items)
   const {
     isOpen,
@@ -12,7 +12,6 @@ function DropdownCombobox({ environment }) {
     getLabelProps,
     getMenuProps,
     getInputProps,
-    getComboboxProps,
     highlightedIndex,
     getItemProps,
   } = useCombobox({
@@ -29,7 +28,7 @@ function DropdownCombobox({ environment }) {
   return (
     <div>
       <label {...getLabelProps()}>Choose an element:</label>
-      <div style={comboboxStyles} {...getComboboxProps()}>
+      <div style={comboboxStyles}>
         <input {...getInputProps()} />
         <button
           type="button"

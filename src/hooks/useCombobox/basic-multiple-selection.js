@@ -12,7 +12,6 @@ function DropdownCombobox() {
     getLabelProps,
     getMenuProps,
     getInputProps,
-    getComboboxProps,
     highlightedIndex,
     getItemProps,
   } = useCombobox({
@@ -68,7 +67,7 @@ function DropdownCombobox() {
   return (
     <div>
       <label {...getLabelProps()}>Choose an element:</label>
-      <div style={comboboxStyles} {...getComboboxProps()}>
+      <div style={comboboxStyles}>
         <input placeholder={placeholderText} {...getInputProps()} />
         <button
           type="button"
