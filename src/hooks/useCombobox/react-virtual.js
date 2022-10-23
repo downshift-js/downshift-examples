@@ -11,7 +11,6 @@ function getItems(search) {
 export default function App() {
   const [inputValue, setInputValue] = React.useState('')
   const items = getItems(inputValue)
-  console.log(items)
 
   const listRef = React.useRef()
 
