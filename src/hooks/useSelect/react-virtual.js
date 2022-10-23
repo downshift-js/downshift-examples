@@ -26,7 +26,7 @@ export default function App() {
     items,
     scrollIntoView: () => {},
     onHighlightedIndexChange: ({highlightedIndex, type}) => {
-      if (type !== '__menu_mouse_leave__') {
+      if (type !== useSelect.stateChangeTypes.MenuMouseLeave) {
         rowVirtualizer.scrollToIndex(highlightedIndex)
       }
     },

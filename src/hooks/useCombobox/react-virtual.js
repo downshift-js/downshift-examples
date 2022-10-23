@@ -11,6 +11,7 @@ function getItems(search) {
 export default function App() {
   const [inputValue, setInputValue] = React.useState('')
   const items = getItems(inputValue)
+  console.log(items)
 
   const listRef = React.useRef()
 
@@ -35,8 +36,11 @@ export default function App() {
     inputValue,
     onInputValueChange: ({inputValue: newValue}) => setInputValue(newValue),
     scrollIntoView: () => {},
-    onHighlightedIndexChange: ({highlightedIndex}) =>
-      rowVirtualizer.scrollToIndex(highlightedIndex),
+    onHighlightedIndexChange: ({highlightedIndex, type}) => {
+      if (type !== useCombobox.stateChangeTypes.MenuMouseLeave) {
+        rowVirtualizer.scrollToIndex(highlightedIndex)
+      }
+    },
   })
 
   return (
