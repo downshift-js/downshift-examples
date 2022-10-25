@@ -61,19 +61,20 @@ function DropdownMultipleCombobox() {
     <div>
       <label {...getLabelProps()}>Choose some elements:</label>
       <div style={comboboxWrapperStyles}>
-        <span
-          style={selectedItemStyles}
-          key={`selected-item-${index}`}
-          {...getSelectedItemProps({selectedItem, index})}
-        >
-          {selectedItem}
+        {selectedItems.map((selectedItem, index) => (
           <span
-            style={selectedItemIconStyles}
-            onClick={() => removeSelectedItem(selectedItem)}
+            style={selectedItemStyles}
+            key={`selected-item-${index}`}
+            {...getSelectedItemProps({selectedItem, index})}
           >
-            &#10005;
+            {selectedItem}
+            <span
+              style={selectedItemIconStyles}
+              onClick={() => removeSelectedItem(selectedItem)}
+            >
+              &#10005;
+            </span>
           </span>
-        </span>
         ))}
         <div style={comboboxStyles}>
           <input
