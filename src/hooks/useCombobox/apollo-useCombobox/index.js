@@ -9,7 +9,6 @@ import {
 import {SEARCH_CHARACTERS, gqlUri} from '../../../shared'
 import {useCombobox} from 'downshift'
 import {menuStyles, comboboxStyles} from './utils'
-import {gqlUri, SEARCH_CHARACTERS} from '../../../shared'
 
 const client = new ApolloClient({
   uri: gqlUri,
