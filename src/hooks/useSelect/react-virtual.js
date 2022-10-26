@@ -25,8 +25,11 @@ export default function App() {
   } = useSelect({
     items,
     scrollIntoView: () => {},
-    onHighlightedIndexChange: ({highlightedIndex}) =>
-      rowVirtualizer.scrollToIndex(highlightedIndex),
+    onHighlightedIndexChange: ({highlightedIndex, type}) => {
+      if (type !== useSelect.stateChangeTypes.MenuMouseLeave) {
+        rowVirtualizer.scrollToIndex(highlightedIndex)
+      }
+    },
   })
 
   return (

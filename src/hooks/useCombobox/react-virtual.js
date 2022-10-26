@@ -34,8 +34,11 @@ export default function App() {
     inputValue,
     onInputValueChange: ({inputValue: newValue}) => setInputValue(newValue),
     scrollIntoView: () => {},
-    onHighlightedIndexChange: ({highlightedIndex}) =>
-      rowVirtualizer.scrollToIndex(highlightedIndex),
+    onHighlightedIndexChange: ({highlightedIndex, type}) => {
+      if (type !== useCombobox.stateChangeTypes.MenuMouseLeave) {
+        rowVirtualizer.scrollToIndex(highlightedIndex)
+      }
+    },
   })
 
   return (
