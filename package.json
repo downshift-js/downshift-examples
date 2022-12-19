@@ -33,7 +33,7 @@
     "react-scripts": "3.4.3",
     "react-tiny-virtual-list": "2.1.6",
     "react-use": "15.3.4",
-    "react-virtual": "2.2.4",
+    "react-virtual": "2.10.4",
     "react-virtualized": "9.22.2",
     "react-window": "1.2.4",
     "starwars-names": "1.6.0",
