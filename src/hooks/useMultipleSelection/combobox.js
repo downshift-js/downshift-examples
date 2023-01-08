@@ -124,7 +124,7 @@ function DropdownMultipleCombobox() {
       </div>
       <ul {...getMenuProps()} style={menuMultipleStyles}>
         {isOpen &&
-          getFilteredItems(items).map((item, index) => (
+          items.map((item, index) => (
             <li
               style={
                 highlightedIndex === index ? {backgroundColor: '#bde4ff'} : {}
