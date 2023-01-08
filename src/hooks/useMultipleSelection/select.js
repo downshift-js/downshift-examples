@@ -2,12 +2,18 @@ import React from 'react'
 import {render} from 'react-dom'
 import {useSelect, useMultipleSelection} from 'downshift'
 import {
-  items,
+  items as elements,
   menuMultipleStyles,
   selectedItemStyles,
   selectedItemIconStyles,
   toggleElementStyles,
 } from '../../shared'
+
+const initialSelectedItems = [elements[0], elements[1]]
+
+function getFilteredItems(selectedItems) {
+  return elements.filter((element) => !selectedItems.includes(element))
+}
 
 function DropdownMultipleSelect() {
   const {
@@ -16,9 +22,8 @@ function DropdownMultipleSelect() {
     addSelectedItem,
     removeSelectedItem,
     selectedItems,
-  } = useMultipleSelection({initialSelectedItems: [items[0], items[1]]})
-  const getFilteredItems = (items) =>
-    items.filter((item) => selectedItems.indexOf(item) < 0)
+  } = useMultipleSelection({initialSelectedItems})
+  const items = getFilteredItems(selectedItems)
   const {
     isOpen,
     selectedItem,
@@ -27,18 +32,31 @@ function DropdownMultipleSelect() {
     getMenuProps,
     highlightedIndex,
     getItemProps,
-    selectItem,
   } = useSelect({
-    items: getFilteredItems(items),
-    onStateChange: ({type, selectedItem}) => {
+    selectedItem: null,
+    defaultHighlightedIndex: 0, // after selection, highlight the first item.
+    items,
+    stateReducer: (state, actionAndChanges) => {
+      const {changes, type} = actionAndChanges
       switch (type) {
-        case useSelect.stateChangeTypes.MenuKeyDownEnter:
-        case useSelect.stateChangeTypes.MenuKeyDownSpaceButton:
+        case useSelect.stateChangeTypes.ToggleButtonKeyDownEnter:
+        case useSelect.stateChangeTypes.ToggleButtonKeyDownSpaceButton:
         case useSelect.stateChangeTypes.ItemClick:
-        case useSelect.stateChangeTypes.MenuBlur:
-          if (selectedItem) {
-            addSelectedItem(selectedItem)
-            selectItem(null)
+          return {
+            ...changes,
+            isOpen: true, // keep the menu open after selection.
+          }
+        default:
+          return changes
+      }
+    },
+    onStateChange: ({type, selectedItem: newSelectedItem}) => {
+      switch (type) {
+        case useSelect.stateChangeTypes.ToggleButtonKeyDownEnter:
+        case useSelect.stateChangeTypes.ToggleButtonKeyDownSpaceButton:
+        case useSelect.stateChangeTypes.ItemClick:
+          if (newSelectedItem) {
+            addSelectedItem(newSelectedItem)
           }
           break
         default:
@@ -72,7 +90,7 @@ function DropdownMultipleSelect() {
       </div>
       <ul {...getMenuProps()} style={menuMultipleStyles}>
         {isOpen &&
-          getFilteredItems(items).map((item, index) => (
+          items.map((item, index) => (
             <li
               style={
                 highlightedIndex === index ? {backgroundColor: '#bde4ff'} : {}
