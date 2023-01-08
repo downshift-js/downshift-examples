@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
+import * as React from 'react'
 import {render} from 'react-dom'
 import {useCombobox, useMultipleSelection} from 'downshift'
 import {
-  items,
+  items as elements,
   menuMultipleStyles,
   comboboxStyles,
   comboboxWrapperStyles,
@@ -10,21 +10,44 @@ import {
   selectedItemIconStyles,
 } from '../../shared'
 
+const initialSelectedItems = [elements[0], elements[1]]
+
+function getFilteredItems(selectedItems, inputValue) {
+  const lowerCasedInputValue = inputValue.toLowerCase()
+
+  return elements.filter(
+    (element) =>
+      !selectedItems.includes(element) &&
+      element.toLowerCase().startsWith(lowerCasedInputValue),
+  )
+}
+
 function DropdownMultipleCombobox() {
-  const [inputValue, setInputValue] = useState('')
+  const [inputValue, setInputValue] = React.useState('')
+  const [selectedItems, setSelectedItems] = React.useState(initialSelectedItems)
+  const items = React.useMemo(
+    () => getFilteredItems(selectedItems, inputValue),
+    [selectedItems, inputValue],
+  )
   const {
     getSelectedItemProps,
     getDropdownProps,
-    addSelectedItem,
     removeSelectedItem,
+  } = useMultipleSelection({
     selectedItems,
-  } = useMultipleSelection({initialSelectedItems: [items[0], items[1]]})
-  const getFilteredItems = (items) =>
-    items.filter(
-      (item) =>
-        selectedItems.indexOf(item) < 0 &&
-        item.toLowerCase().startsWith(inputValue.toLowerCase()),
-    )
+    onStateChange({selectedItems: newSelectedItems, type}) {
+      switch (type) {
+        case useMultipleSelection.stateChangeTypes.SelectedItemKeyDownBackspace:
+        case useMultipleSelection.stateChangeTypes.SelectedItemKeyDownDelete:
+        case useMultipleSelection.stateChangeTypes.DropdownKeyDownBackspace:
+        case useMultipleSelection.stateChangeTypes.FunctionRemoveSelectedItem:
+          setSelectedItems(newSelectedItems)
+          break
+        default:
+          break
+      }
+    },
+  })
   const {
     isOpen,
     getToggleButtonProps,
@@ -33,24 +56,38 @@ function DropdownMultipleCombobox() {
     getInputProps,
     highlightedIndex,
     getItemProps,
-    selectItem,
   } = useCombobox({
+    items,
     inputValue,
-    items: getFilteredItems(items),
-    onStateChange: ({inputValue, type, selectedItem}) => {
+    selectedItem: null,
+    stateReducer(state, actionAndChanges) {
+      const {changes, type} = actionAndChanges
+
       switch (type) {
-        case useCombobox.stateChangeTypes.InputChange:
-          setInputValue(inputValue)
-          break
         case useCombobox.stateChangeTypes.InputKeyDownEnter:
         case useCombobox.stateChangeTypes.ItemClick:
         case useCombobox.stateChangeTypes.InputBlur:
-          if (selectedItem) {
-            setInputValue('')
-            addSelectedItem(selectedItem)
-            selectItem(null)
+          return {
+            ...changes,
+            ...(changes.selectedItem && {isOpen: true, highlightedIndex: 0}),
           }
+        default:
+          return changes
+      }
+    },
+    onStateChange({
+      inputValue: newInputValue,
+      type,
+      selectedItem: newSelectedItem,
+    }) {
+      switch (type) {
+        case useCombobox.stateChangeTypes.InputKeyDownEnter:
+        case useCombobox.stateChangeTypes.ItemClick:
+          setSelectedItems([...selectedItems, newSelectedItem])
 
+          break
+        case useCombobox.stateChangeTypes.InputChange:
+          setInputValue(newInputValue)
           break
         default:
           break
