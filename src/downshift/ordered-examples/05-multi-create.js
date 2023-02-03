@@ -82,7 +82,6 @@ function CreateablePicker(props) {
     getLabelProps,
     getMenuProps,
     getInputProps,
-    getComboboxProps,
     highlightedIndex,
     getItemProps,
     openMenu,
@@ -205,7 +204,7 @@ function CreateablePicker(props) {
             </span>
           ))}
         </div>
-        <div className="relative" {...getComboboxProps()}>
+        <div className="relative">
           <input
             {...getInputProps(
               getDropdownProps({
