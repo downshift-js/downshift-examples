@@ -6,8 +6,8 @@ import {items, menuStyles, toggleElementStyles} from '../../shared'
 function stateReducer(state, actionAndChanges) {
   const {changes, type} = actionAndChanges
   switch (type) {
-    case useSelect.stateChangeTypes.MenuKeyDownEnter:
-    case useSelect.stateChangeTypes.MenuKeyDownSpaceButton:
+    case useSelect.stateChangeTypes.ToggleButtonKeyDownEnter:
+    case useSelect.stateChangeTypes.ToggleButtonKeyDownSpaceButton:
     case useSelect.stateChangeTypes.ItemClick:
       return {
         ...changes,
