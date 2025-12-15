@@ -272,6 +272,38 @@ export const toggleElementStyles = {
   cursor: 'pointer',
 }
 
+export const tagGroupStyle = {
+  display: 'inline-flex',
+  gap: '8px',
+  alignItems: 'center',
+  flexWrap: 'wrap',
+  padding: '6px',
+}
+
+export const tagStyle = {
+  border: '1px solid darkgreen',
+  backgroundColor: 'green',
+  padding: '0 6px',
+  margin: '0 2px',
+  borderRadius: '10px',
+  cursor: 'default',
+}
+
+export const tagRemoveButtonStyle = {
+  padding: '4px',
+  cursor: 'pointer',
+  border: 'none',
+  backgroundColor: 'transparent',
+}
+
+export const activeTagStyle = {
+  fontStyle: 'italic',
+}
+
+export const itemToAddStyle = {
+  cursor: 'pointer',
+}
+
 export const SEARCH_CHARACTERS = gql`
   query Characters {
     characters {
