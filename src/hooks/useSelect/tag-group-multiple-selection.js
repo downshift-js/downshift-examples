@@ -39,8 +39,13 @@ function TagGroup() {
         addItem(selectedItem)
       }
     },
-    stateReducer(_state, {changes}) {
-      if (changes.selectedItem) {
+    stateReducer(_state, actionAndChanges) {
+      const {changes, type} = actionAndChanges
+
+      if (
+        changes.selectedItem &&
+        type !== useSelect.stateChangeTypes.ToggleButtonBlur
+      ) {
         return {...changes, inputValue: '', highlightedIndex: 0, isOpen: true}
       }
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { use } from 'react'
 import {render} from 'react-dom'
 import {useTagGroup, useCombobox} from 'downshift'
 
@@ -49,9 +49,13 @@ function TagGroup() {
         addItem(selectedItem)
       }
     },
-    selectedItem: null,
-    stateReducer(_state, {changes}) {
-      if (changes.selectedItem) {
+    stateReducer(_state, actionAndChanges) {
+      const {changes, type} = actionAndChanges
+
+      if (
+        changes.selectedItem &&
+        type !== useCombobox.stateChangeTypes.InputBlur
+      ) {
         return {...changes, inputValue: '', highlightedIndex: 0, isOpen: true}
       }
 
