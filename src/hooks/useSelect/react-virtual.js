@@ -1,16 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {useVirtual} from 'react-virtual'
+import {useVirtualizer} from '@tanstack/react-virtual'
 import {useSelect} from 'downshift'
 import {items, menuStyles, toggleElementStyles} from '../../shared'
 
 export default function App() {
   const listRef = React.useRef()
 
-  const rowVirtualizer = useVirtual({
-    size: items.length,
-    parentRef: listRef,
-    estimateSize: React.useCallback(() => 20, []),
+  const rowVirtualizer = useVirtualizer({
+    count: items.length,
+    getScrollElement: () => listRef.current,
+    estimateSize: () => 20,
     overscan: 2,
   })
 
@@ -26,7 +26,10 @@ export default function App() {
     items,
     scrollIntoView: () => {},
     onHighlightedIndexChange: ({highlightedIndex, type}) => {
-      if (type !== useSelect.stateChangeTypes.MenuMouseLeave) {
+      if (
+        highlightedIndex >= 0 &&
+        type !== useSelect.stateChangeTypes.MenuMouseLeave
+      ) {
         rowVirtualizer.scrollToIndex(highlightedIndex)
       }
     },
@@ -50,10 +53,13 @@ export default function App() {
       >
         {isOpen && (
           <>
-            <li key="total-size" style={{height: rowVirtualizer.totalSize}} />
-            {rowVirtualizer.virtualItems.map((virtualRow) => (
+            <li
+              key="total-size"
+              style={{height: rowVirtualizer.getTotalSize()}}
+            />
+            {rowVirtualizer.getVirtualItems().map((virtualRow) => (
               <li
-                key={items[virtualRow.index].id}
+                key={virtualRow.key}
                 {...getItemProps({
                   index: virtualRow.index,
                   item: items[virtualRow.index],

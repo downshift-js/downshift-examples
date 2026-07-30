@@ -5,6 +5,7 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "@tanstack/react-virtual": "3.14.9",
     "@apollo/client": "3.1.1",
     "@material-ui/core": "4.11.0",
     "@material-ui/icons": "4.9.1",
@@ -33,7 +34,6 @@
     "react-scripts": "3.4.3",
     "react-tiny-virtual-list": "2.1.6",
     "react-use": "15.3.4",
-    "react-virtual": "2.10.4",
     "react-virtualized": "9.22.2",
     "react-window": "1.2.4",
     "starwars-names": "1.6.0",
